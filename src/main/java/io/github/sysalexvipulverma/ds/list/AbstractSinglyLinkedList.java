@@ -64,17 +64,19 @@ public abstract class AbstractSinglyLinkedList<E> implements Container<E>, Index
      * Time Complexity O(1)
      * */
     public synchronized AbstractSinglyLinkedList<E> removeFirst() {
+        if (0 == currentSize) {
+            return this;
+        }
+
         if (1 == currentSize) {
             clear();
             return this;
         }
 
-        synchronized (this) {
-            head.element = null;
-            head = head.next;
-            --currentSize;
-            return this;
-        }
+        head.element = null;
+        head = head.next;
+        --currentSize;
+        return this;
     }
 
     /*
@@ -113,25 +115,28 @@ public abstract class AbstractSinglyLinkedList<E> implements Container<E>, Index
             clear();
             return this;
         }
+        tail.element = null;
 
-        synchronized (this) {
-            tail.element = null;
-
-            Node secondLastNode = findSecondLastNode();
-            secondLastNode.next = null;
-            tail = secondLastNode;
-            --currentSize;
-            return this;
-        }
+        Node secondLastNode = findSecondLastNode();
+        secondLastNode.next = null;
+        tail = secondLastNode;
+        --currentSize;
+        return this;
     }
 
     public E first() {
-        return null == head.element ? null : head.element;
+        return null == head ? null : head.element;
     }
 
     public E last() {
-        return null == tail.element ? null : tail.element;
+        return null == tail ? null : tail.element;
     }
+
+    /*
+     * Declared at the base level for consistent abstraction.
+     * Allows subclasses to define whether reversed copies are mutable or immutable.
+     * */
+    public abstract AbstractSinglyLinkedList<E> reversed();
 
     @Override
     public String toString() {
