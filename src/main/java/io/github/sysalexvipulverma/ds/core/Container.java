@@ -72,6 +72,8 @@ public interface Container<E> extends Iterable<E> {
     // Removing elements
     Container<E> remove(E element);
 
+    Container<E> clear();
+
     // Searching elements
     boolean contains(E element);
 
