@@ -8,6 +8,19 @@ import java.util.Objects;
 
 public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements Container<E>, IndexedContainer<E> {
 
+    @Override
+    public SinglyLinkedList<E> reversed() {
+        SinglyLinkedList<E> out = new SinglyLinkedList<>();
+
+        for (Node currentNode = head; currentNode != null; currentNode = currentNode.next) {
+
+            // addFirst() results in reverse order — linear time, space-efficient.
+            out.addFirst(currentNode.element);
+        }
+
+        return out;
+    }
+
     /*
      * Helper method to remove an element at the middle
      * given that this method will not be called through head or tail nodes
@@ -35,7 +48,7 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
      * Helper method to get the node at specific index
      * Time Complexity O(n) which will be improved to O(n / 2)
      * */
-    private Node nodeAtIndex(int index) {
+    private synchronized Node nodeAtIndex(int index) {
         if (index < 0 || index >= currentSize) {
             throw new IndexOutOfBoundsException();
         }
@@ -87,8 +100,8 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
 
     @Override
     public SinglyLinkedList<E> remove(E element) {
-        for(Node currentNode = head; currentNode != null; currentNode = currentNode.next) {
-            if(Objects.equals(element, currentNode.element)) {
+        for (Node currentNode = head; currentNode != null; currentNode = currentNode.next) {
+            if (Objects.equals(element, currentNode.element)) {
                 removeMiddleNode(currentNode);
                 return this;
             }
@@ -97,7 +110,7 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
     }
 
     @Override
-    public synchronized AbstractSinglyLinkedList<E> clear() {
+    public synchronized SinglyLinkedList<E> clear() {
         if (0 == currentSize) {
             return this;
         }
@@ -140,6 +153,16 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
 
     @Override
     public SinglyLinkedList<E> remove(int index) {
+        if (0 == index) {
+            removeFirst();
+            return this;
+        }
+
+        if (index == (currentSize - 1)) {
+            removeLast();
+            return this;
+        }
+
         removeMiddleNode(nodeAtIndex(index));
         return this;
     }
@@ -148,8 +171,8 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
     public int indexOf(E element) {
         int currentIndex = 0;
 
-        for(Node currentNode = head; currentNode != null; currentNode = currentNode.next, ++ currentIndex) {
-            if(Objects.equals(element, currentNode.element)) {
+        for (Node currentNode = head; currentNode != null; currentNode = currentNode.next, ++currentIndex) {
+            if (Objects.equals(element, currentNode.element)) {
                 return currentIndex;
             }
         }
@@ -157,16 +180,16 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
     }
 
     /*
-    * Below implementation of lastIndexOf() will be improved in DoublyLinkedList
-    * as we will move from tail node to head node instead of head to tail
-    * */
+     * Below implementation of lastIndexOf() will be improved in DoublyLinkedList
+     * as we will move from tail node to head node instead of head to tail
+     * */
     @Override
     public int lastIndexOf(E element) {
         int currentIndex = 0;
         int lastIndex = -1;
 
-        for(Node currentNode = head; currentNode != null; currentNode = currentNode.next, ++ currentIndex) {
-            if(Objects.equals(element, currentNode.element)) {
+        for (Node currentNode = head; currentNode != null; currentNode = currentNode.next, ++currentIndex) {
+            if (Objects.equals(element, currentNode.element)) {
                 lastIndex = currentIndex;
             }
         }
@@ -177,19 +200,19 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
     public IndexedContainer<E> add(int index, E element) {
         Node nodeToBeAdded = new Node(element);
 
-        if(0 == index) {
+        if (0 == index) {
             addFirst(element);
             return this;
         }
 
-        if(index == currentSize) {
+        if (index == currentSize) {
             addLast(element);
             return this;
         }
 
         synchronized (this) {
             Node previousNode = nodeAtIndex(index - 1);
-            Node existingNode = nodeAtIndex(index);
+            Node existingNode = previousNode.next;
 
             previousNode.next = nodeToBeAdded;
             nodeToBeAdded.next = existingNode;
