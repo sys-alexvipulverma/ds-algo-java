@@ -38,9 +38,7 @@ public class IntegerArrayUtils {
             return 0;
         }
 
-        return IntStream
-                .of(array)
-                .sum();
+        return IntStream.of(array).sum();
     }
 
     public static double average(@NonNull int... array) {
@@ -349,9 +347,29 @@ public class IntegerArrayUtils {
         return true;
     }
 
-    // TODO : Second max element. Asked in Publicis Sapient first coding round
+    // TODO : Without using Stream API, find second max element. Asked in Publicis Sapient first coding round
 
-    // TODO : Second max element using Stream API. Asked in Wipro first coding round
+    /*
+     * Using stream API, find second maximum element from an integer array
+     * Asked in Wipro first coding round
+     * */
+    public static int secondMaxStream(int... array) {
+        if (array.length < 2) {
+            throw new InvalidArrayException();
+        }
+
+        OptionalInt optionalInt = IntStream
+                .of(array)
+                .sorted()
+                .skip(1)
+                .max();
+
+        if (optionalInt.isPresent()) {
+            return optionalInt.getAsInt();
+        } else {
+            throw new InvalidArrayException();
+        }
+    }
 
     public static void forEach(@NonNull IntConsumer consumer, @NonNull int... array) {
         for (int element : array) {
