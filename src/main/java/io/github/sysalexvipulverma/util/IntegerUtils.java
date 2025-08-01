@@ -178,16 +178,6 @@ public final class IntegerUtils {
         return allDigits;
     }
 
-    // TODO : sqrt() implementation
-
-    // TODO : Question form Let Us C, check if a number is part of fibonacci series
-
-    // TODO : Question form Let Us C, reverse() digits
-
-    // TODO : Question form Let Us C, palindrome number
-
-    // TODO : shuffle digits
-
     public static boolean isPerfectNumber(int input) {
         if (input <= 1) {
             return false;
@@ -216,18 +206,6 @@ public final class IntegerUtils {
         }
         return newNumber == input;
     }
-
-    // TODO : Neon Number
-    /*
-     * Square of the number, and sum of the digits of the square equals the original number.
-     * Example: 9 → 9² = 81, 8+1 = 9
-     * */
-
-    // TODO : Automorphic Number
-    /*
-     * A number whose square ends with the number itself.
-     * Example: 76 → 76² = 5776
-     * */
 
     /*
      * Harshad Number
@@ -301,12 +279,6 @@ public final class IntegerUtils {
         return isEven(count1(input));
     }
 
-    // TODO : Kaprekar Number
-    /*
-     * A number where the square can be split into two parts that sum to the original number.
-     * Example: 45 → 45² = 2025 → 20 + 25 = 45
-     * */
-
     public static double pow(long mantissa, int exponent) {
         if (0 == exponent) {
             return 1;
@@ -349,4 +321,40 @@ public final class IntegerUtils {
         }
         return input == sum;
     }
+
+    // TODO : Perfect square - Asked in Microsoft
+
+    // TODO : Question from Let Us C - Find all prime numbers in given range
+
+    // TODO : sqrt() implementation
+
+    // TODO : Question form Let Us C, check if a number is part of fibonacci series
+
+    // TODO : Question form Let Us C, reverse() digits
+
+    // TODO : Question form Let Us C, palindrome number
+
+    // TODO : shuffle digits
+
+    // TODO : Kaprekar Number
+    /*
+     * A number where the square can be split into two parts that sum to the original number.
+     * Example: 45 → 45² = 2025 → 20 + 25 = 45
+     * */
+
+    // TODO : Neon Number
+    /*
+     * Square of the number, and sum of the digits of the square equals the original number.
+     * Example: 9 → 9² = 81, 8+1 = 9
+     * */
+
+    // TODO : Automorphic Number
+    /*
+     * A number whose square ends with the number itself.
+     * Example: 76 → 76² = 5776
+     * */
+
+    // TODO : Question from Let Us C, sum of first and last digit
+
+    // TODO : Question from Let Us C, armstrong numbers in given range
 }
