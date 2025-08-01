@@ -83,6 +83,12 @@ public class DoublyLinkedList<E> extends AbstractDoublyLinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
+
+        /*
+         * The below feature was introduced in Java 9
+         * Using diamond operator <> in anonymous inner classes
+         * */
+
         return new Iterator<E>() {
             private Node currentNode = head;
 
