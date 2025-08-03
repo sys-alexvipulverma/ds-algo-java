@@ -8,6 +8,8 @@ package io.github.sysalexvipulverma.ds.core;
 import lombok.NonNull;
 
 import java.util.Iterator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public interface Container<E> extends Iterable<E> {
 
@@ -82,4 +84,20 @@ public interface Container<E> extends Iterable<E> {
     default boolean isEmpty() {
         return 0 == size();
     }
+
+    default Container<E> filter(@NonNull Predicate<E> predicate) {
+        synchronized (this) {
+            for (E element : this) {
+                if (!predicate.test(element)) {
+                    this.remove(element);
+                }
+            }
+            return this;
+        }
+    }
+
+    /*
+     * The returned Container<R> must be a fresh instance, not modifying the current one
+     * */
+    <R> Container<R> map(Function<E, R> function);
 }
