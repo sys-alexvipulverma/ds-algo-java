@@ -36,6 +36,10 @@ public final class IntegerUtils {
         return sum;
     }
 
+    /*
+     * Question from Let Us C
+     * Count the number of digits
+     * */
     public static int numberOfDigits(int input) {
         if (0 == input) {
             return 1;
@@ -195,6 +199,10 @@ public final class IntegerUtils {
         return sum == input;
     }
 
+    /*
+     * Question from Let Us C
+     * Check if input number is a strong number
+     * */
     public static boolean isStrongNumber(int input) {
         if (input <= 0) {
             return false;
@@ -326,31 +334,31 @@ public final class IntegerUtils {
     }
 
     /*
-    * Check if a number is perfect square
-    * For example 16 and 25 are perfect square because 4 * 4 = 16
-    * and 5 * 5 = 25
-    *
-    * Asked in Microsoft
-    * */
+     * Check if a number is perfect square
+     * For example 16 and 25 are perfect square because 4 * 4 = 16
+     * and 5 * 5 = 25
+     *
+     * Asked in Microsoft
+     * */
     public static boolean isPerfectSquare(int input) {
-        if(input < 0) {
+        if (input < 0) {
             return false;
         }
 
-        for(int counter = 1; ; counter ++) {
+        for (int counter = 1; ; counter++) {
             int square = counter * counter;
-            if(square == input) {
+            if (square == input) {
                 return true;
             }
 
-            if(square > input) {
+            if (square > input) {
                 return false;
             }
         }
     }
 
     public static int[] allPrimes(int from, int upto) {
-        if(from >= upto) {
+        if (from >= upto) {
             throw new InvalidRangeException();
         }
 
