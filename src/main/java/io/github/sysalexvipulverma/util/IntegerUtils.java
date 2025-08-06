@@ -1,7 +1,10 @@
 package io.github.sysalexvipulverma.util;
 
+import io.github.sysalexvipulverma.exception.InvalidRangeException;
 import io.github.sysalexvipulverma.exception.NegativeNumberException;
 import lombok.experimental.UtilityClass;
+
+import java.util.stream.IntStream;
 
 @UtilityClass
 public final class IntegerUtils {
@@ -322,9 +325,40 @@ public final class IntegerUtils {
         return input == sum;
     }
 
-    // TODO : Perfect square - Asked in Microsoft
+    /*
+    * Check if a number is perfect square
+    * For example 16 and 25 are perfect square because 4 * 4 = 16
+    * and 5 * 5 = 25
+    *
+    * Asked in Microsoft
+    * */
+    public static boolean isPerfectSquare(int input) {
+        if(input < 0) {
+            return false;
+        }
 
-    // TODO : Question from Let Us C - Find all prime numbers in given range
+        for(int counter = 1; ; counter ++) {
+            int square = counter * counter;
+            if(square == input) {
+                return true;
+            }
+
+            if(square > input) {
+                return false;
+            }
+        }
+    }
+
+    public static int[] allPrimes(int from, int upto) {
+        if(from >= upto) {
+            throw new InvalidRangeException();
+        }
+
+        return IntStream
+                .iterate(from, x -> x <= upto, x -> x + 1)
+                .filter(IntegerUtils::isPrime)
+                .toArray();
+    }
 
     // TODO : sqrt() implementation
 
