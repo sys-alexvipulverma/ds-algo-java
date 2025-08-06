@@ -5,6 +5,11 @@ import io.github.sysalexvipulverma.ds.list.SinglyLinkedList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/*
+ * Question from Let Us C
+ * Implement Stack using LinkedList
+ * */
+
 public class LinkedStack<E> implements Stack<E>, Iterable<E> {
     private final SinglyLinkedList<E> linkedList;
 

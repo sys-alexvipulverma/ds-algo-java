@@ -333,6 +333,12 @@ public class IntegerArrayUtils {
 
     // TODO : Check if input element is part diagonals of square matrix
 
+    // TODO : Question from Let Us C, Implement bubble sort, insertion sort, and selection sort
+
+    // TODO : Question from Let Us C, transpose of a matrix
+
+    // TODO : Question from Let Us C, Sum of diagonal elements of a matrix
+
     public static boolean isMatrix(@NonNull int[]... twoDimensionalArray) {
         int length = twoDimensionalArray.length;
 
