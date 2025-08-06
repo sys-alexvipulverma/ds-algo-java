@@ -1,8 +1,11 @@
 package io.github.sysalexvipulverma.ds.list;
 
+import lombok.NonNull;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.Function;
 
 public class DoublyLinkedList<E> extends AbstractDoublyLinkedList<E> {
 
@@ -63,6 +66,15 @@ public class DoublyLinkedList<E> extends AbstractDoublyLinkedList<E> {
     @Override
     public int size() {
         return currentSize;
+    }
+
+    @Override
+    public <R> DoublyLinkedList<R> map(@NonNull Function<E, R> function) {
+        DoublyLinkedList<R> out = new DoublyLinkedList<>();
+        for (E element : this) {
+            out.add(function.apply(element));
+        }
+        return out;
     }
 
     @Override

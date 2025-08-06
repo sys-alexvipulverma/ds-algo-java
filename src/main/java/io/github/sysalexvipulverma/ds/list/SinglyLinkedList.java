@@ -5,6 +5,7 @@ import io.github.sysalexvipulverma.ds.core.Container;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.Function;
 
 public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements Container<E>, IndexedContainer<E> {
 
@@ -68,6 +69,16 @@ public class SinglyLinkedList<E> extends AbstractSinglyLinkedList<E> implements 
     @Override
     public int size() {
         return currentSize;
+    }
+
+    @Override
+    public <R> SinglyLinkedList<R> map(Function<E, R> function) {
+        SinglyLinkedList<R> out = new SinglyLinkedList<>();
+
+        for (E element : this) {
+            out.add(function.apply(element));
+        }
+        return out;
     }
 
     @Override

@@ -1,13 +1,16 @@
 package io.github.sysalexvipulverma.util;
 
 import io.github.sysalexvipulverma.exception.EmptyArrayException;
+import io.github.sysalexvipulverma.exception.InvalidArrayException;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.function.IntConsumer;
 import java.util.function.LongToIntFunction;
+import java.util.stream.IntStream;
 
 @UtilityClass
 public class IntegerArrayUtils {
@@ -30,12 +33,27 @@ public class IntegerArrayUtils {
         return sum;
     }
 
+    public static int sumStream(@NonNull int... array) {
+        if (0 == array.length) {
+            return 0;
+        }
+
+        return IntStream.of(array).sum();
+    }
+
     public static double average(@NonNull int... array) {
         if (0 == array.length) {
             throw new EmptyArrayException();
         }
 
         return ((double) sum(array)) / array.length;
+    }
+
+    public static double averageStream(@NonNull int... array) {
+        if (0 == array.length) {
+            throw new EmptyArrayException();
+        }
+        return sumStream(array) / (double) array.length;
     }
 
     /*
@@ -74,6 +92,16 @@ public class IntegerArrayUtils {
         return max;
     }
 
+    public static int maxStream(@NonNull int... array) {
+        OptionalInt optionalInt = IntStream.of(array).max();
+
+        if (optionalInt.isPresent()) {
+            return optionalInt.getAsInt();
+        } else {
+            throw new InvalidArrayException();
+        }
+    }
+
     public static int min(@NonNull int... array) {
         if (0 == array.length) {
             throw new EmptyArrayException();
@@ -90,6 +118,16 @@ public class IntegerArrayUtils {
             }
         }
         return min;
+    }
+
+    public static int minStream(@NonNull int... array) {
+        OptionalInt optionalInt = IntStream.of(array).min();
+
+        if (optionalInt.isPresent()) {
+            return optionalInt.getAsInt();
+        } else {
+            throw new InvalidArrayException();
+        }
     }
 
     /*
@@ -309,9 +347,29 @@ public class IntegerArrayUtils {
         return true;
     }
 
-    // TODO : Second max element. Asked in Publicis Sapient first coding round
+    // TODO : Without using Stream API, find second max element. Asked in Publicis Sapient first coding round
 
-    // TODO : Second max element using Stream API. Asked in Wipro first coding round
+    /*
+     * Using stream API, find second maximum element from an integer array
+     * Asked in Wipro first coding round
+     * */
+    public static int secondMaxStream(int... array) {
+        if (array.length < 2) {
+            throw new InvalidArrayException();
+        }
+
+        OptionalInt optionalInt = IntStream
+                .of(array)
+                .sorted()
+                .skip(1)
+                .max();
+
+        if (optionalInt.isPresent()) {
+            return optionalInt.getAsInt();
+        } else {
+            throw new InvalidArrayException();
+        }
+    }
 
     public static void forEach(@NonNull IntConsumer consumer, @NonNull int... array) {
         for (int element : array) {
